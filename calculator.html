@@ -1,0 +1,102 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Calculator</title>
+    <script  type = "text/javascript" src="vue.js"></script>
+  </head>
+  <body>
+    <h1>Calculator</h1>
+      <div id="app1">
+        <p>{{outputBox}}</p>
+        <br />
+        <button v-on:click="appendInput(7)">7</button>
+        <button v-on:click="appendInput(8)">8</button>
+        <button v-on:click="appendInput(9)">9</button>
+        <button v-on:click="divide">÷</button>
+        <br />
+        <button v-on:click="appendInput(4)">4</button>
+        <button v-on:click="appendInput(5)">5</button>
+        <button v-on:click="appendInput(6)">6</button>
+        <button v-on:click="times">x</button>
+        <br />
+        <button v-on:click="appendInput(1)">1</button>
+        <button v-on:click="appendInput(2)">2</button>
+        <button v-on:click="appendInput(3)">3</button>
+        <button v-on:click="minus">-</button>
+        <br />
+        <button v-on:click="appendInput(0)">0</button>
+        <button v-on:click="appendInput('.')">.</button>
+        <button v-on:click="calculate">=</button>
+        <button v-on:click="plus">+</button>
+      </div>
+      <script type = "text/javascript">
+          new Vue({
+              el:"#app1",
+              data:{
+                outputBox:'',
+                tempValue: 0,
+                status:'',
+                pressedCalculate: false
+              },
+              methods:{
+                appendInput: function(number) {
+                  this.outputBox = this.outputBox.concat(number);
+                },
+                plus: function(){
+                  if (this.pressedCalculate == false){
+                    this.calculate();
+                  }
+                  this.pressedCalculate = false
+                  this.status = 'plus';
+                  this.tempValue = this.outputBox;
+                  this.outputBox = '';
+                },
+                minus: function(){
+                  if (this.pressedCalculate == false){
+                    this.calculate();
+                  }
+                  this.pressedCalculate = false
+                  this.status = 'minus';
+                  this.tempValue = this.outputBox;
+                  this.outputBox = '';
+                },
+                times: function(){
+                  if (this.pressedCalculate == false){
+                    this.calculate();
+                  }
+                  this.pressedCalculate = false
+                  this.status = 'times';
+                  this.tempValue = this.outputBox;
+                  this.outputBox = '';
+                },
+                divide: function(){
+                  if (this.pressedCalculate == false){
+                    this.calculate();
+                  }
+                  this.pressedCalculate = false
+                  this.status = 'divide';
+                  this.tempValue = this.outputBox;
+                  this.outputBox = '';
+                },
+                calculate: function(){
+                  if (this.status == 'plus'){
+                    this.outputBox = Number(this.outputBox) + Number(this.tempValue);
+                    this.pressedCalculate = true
+                  } else if (this.status == 'minus'){
+                    this.outputBox = Number(this.tempValue) - Number(this.outputBox);
+                    this.pressedCalculate = true
+                  } else if (this.status == 'times'){
+                    this.outputBox = Number(this.tempValue) * Number(this.outputBox);
+                    this.pressedCalculate = true
+                  } else if (this.status == 'divide'){
+                    this.outputBox = Number(this.tempValue) / Number(this.outputBox);
+                    this.pressedCalculate = true
+                  } else {
+                  }
+                }
+              }
+          });
+      </script>
+
+    </body>
+</html>
